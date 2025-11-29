@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 14, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/nckne/OneDrive/Desktop/assign-eccom/assign-eccom/src/app/page.tsx"],"sourcesContent":["import React from 'react';\n\nconst HomePage: React.FC = () => {\n    return (\n        <div className=\"flex flex-col items-center justify-center min-h-screen bg-gray-100\">\n            <h1 className=\"text-4xl font-bold text-center\">Welcome to the Next.js App!</h1>\n            <p className=\"mt-4 text-lg text-center\">This is the home page of your Next.js application.</p>\n        </div>\n    );\n};\n\nexport default HomePage;"],"names":[],"mappings":";;;;;;AAEA,MAAM,WAAqB;IACvB,qBACI,8OAAC;QAAI,WAAU;;0BACX,8OAAC;gBAAG,WAAU;0BAAiC;;;;;;0BAC/C,8OAAC;gBAAE,WAAU;0BAA2B;;;;;;;;;;;;AAGpD;uCAEe"}}]
+}
