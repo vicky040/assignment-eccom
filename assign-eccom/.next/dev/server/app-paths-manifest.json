@@ -2,7 +2,6 @@
   "/_not-found/page": "app/_not-found/page.js",
   "/admin/page": "app/admin/page.js",
   "/api/admin/analytics/route": "app/api/admin/analytics/route.js",
-  "/api/admin/generate-discount/route": "app/api/admin/generate-discount/route.js",
   "/api/cart/clear/route": "app/api/cart/clear/route.js",
   "/api/cart/discount/route": "app/api/cart/discount/route.js",
   "/api/cart/route": "app/api/cart/route.js",

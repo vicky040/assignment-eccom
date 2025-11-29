@@ -9,43 +9,55 @@ let products: Product[] = [];
 let cart: Map<string, CartItem> = new Map();
 let appliedDiscountCode: DiscountCode | null = null;
 let orders: Order[] = [];
-let discountCodes: DiscountCode[] = [{
-    code: 'SAVE15',
-    percentage: 15,
-    isUsed: false,
-}];
+let discountCodes: DiscountCode[] = [];
 
-// Initialize products
-if (products.length === 0) {
-    products = PlaceHolderImages.map((img, index) => {
-        const productNames = [
-            "Quantum-Charged Mug",
-            "Chrono-Shifting T-Shirt",
-            "Aether-Infused Socks",
-            "Zero-Gravity Pen",
-            "Hyperspace Hoodie",
-            "Singularity Smartwatch"
-        ];
-        const productDescriptions = [
-            "A mug that keeps your coffee at the perfect temperature using quantum entanglement.",
-            "This t-shirt subtly shifts its design based on the temporal flux. Never wear the same shirt twice.",
-            "Infused with aether, these socks provide unparalleled comfort and a slight, pleasant hum.",
-            "A pen that floats slightly above the desk, for when you need a little space to think.",
-            "A comfortable hoodie that gives you the feeling of gazing into the vastness of space.",
-            "A modern smartwatch that displays complex data with a touch of elegance and cosmic wonder."
-        ];
-        const prices = [42.00, 55.00, 25.00, 30.00, 95.00, 250.00];
+// Helper to initialize or reset product data
+function initializeProducts() {
+    if (products.length === 0) {
+        products = PlaceHolderImages.map((img, index) => {
+            const productNames = [
+                "Quantum-Charged Mug",
+                "Chrono-Shifting T-Shirt",
+                "Aether-Infused Socks",
+                "Zero-Gravity Pen",
+                "Hyperspace Hoodie",
+                "Singularity Smartwatch"
+            ];
+            const productDescriptions = [
+                "A mug that keeps your coffee at the perfect temperature using quantum entanglement.",
+                "This t-shirt subtly shifts its design based on the temporal flux. Never wear the same shirt twice.",
+                "Infused with aether, these socks provide unparalleled comfort and a slight, pleasant hum.",
+                "A pen that floats slightly above the desk, for when you need a little space to think.",
+                "A comfortable hoodie that gives you the feeling of gazing into the vastness of space.",
+                "A modern smartwatch that displays complex data with a touch of elegance and cosmic wonder."
+            ];
+            const prices = [42.00, 55.00, 25.00, 30.00, 95.00, 250.00];
 
-        return {
-            id: `prod_${index + 1}`,
-            name: productNames[index],
-            description: productDescriptions[index],
-            price: prices[index],
-            imageUrl: img.imageUrl,
-            imageHint: img.imageHint,
-        }
-    });
+            return {
+                id: `prod_${index + 1}`,
+                name: productNames[index],
+                description: productDescriptions[index],
+                price: prices[index],
+                imageUrl: img.imageUrl,
+                imageHint: img.imageHint,
+            }
+        });
+    }
 }
+
+// Helper to initialize or reset discount codes
+function initializeDiscounts() {
+    discountCodes = [{
+        code: 'SAVE15',
+        percentage: 15,
+        isUsed: false,
+    }];
+}
+
+// Initializing the store data
+initializeProducts();
+initializeDiscounts();
+
 
 function getCartState(): Cart {
     const items = Array.from(cart.values());
@@ -65,6 +77,14 @@ function getCartState(): Cart {
 }
 
 class CouponCartStore {
+    // This is for internal testing purposes to reset the state
+    _resetForTesting() {
+        cart.clear();
+        appliedDiscountCode = null;
+        orders = [];
+        initializeDiscounts();
+    }
+    
     getProducts(): Product[] {
         return products;
     }
@@ -158,18 +178,18 @@ class CouponCartStore {
         }
         
         let newDiscount: DiscountCode | undefined;
-        // The responsibility for clearing the cart is now moved to the client-side provider
-        // this.clearCart() is removed from here.
-
         if (orders.length % NTH_ORDER === 0) {
-            newDiscount = this.generateNthOrderDiscount(true);
+            newDiscount = this.generateNthOrderDiscount(true) || undefined;
         }
         
+        // This method will be called from the provider after this to clear the cart
+        // this.clearCart(); 
+
         return { order, newDiscount };
     }
 
     generateNthOrderDiscount(force: boolean = false): DiscountCode | null {
-        if (!force && (orders.length === 0 || orders.length % NTH_ORDER !== 0)) {
+        if (!force && (orders.length === 0 || (orders.length + 1) % NTH_ORDER !== 0)) {
             return null;
         }
 

@@ -78,50 +78,59 @@ let products = [];
 let cart = new Map();
 let appliedDiscountCode = null;
 let orders = [];
-let discountCodes = [
-    {
-        code: 'SAVE15',
-        percentage: 15,
-        isUsed: false
+let discountCodes = [];
+// Helper to initialize or reset product data
+function initializeProducts() {
+    if (products.length === 0) {
+        products = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$placeholder$2d$images$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["PlaceHolderImages"].map((img, index)=>{
+            const productNames = [
+                "Quantum-Charged Mug",
+                "Chrono-Shifting T-Shirt",
+                "Aether-Infused Socks",
+                "Zero-Gravity Pen",
+                "Hyperspace Hoodie",
+                "Singularity Smartwatch"
+            ];
+            const productDescriptions = [
+                "A mug that keeps your coffee at the perfect temperature using quantum entanglement.",
+                "This t-shirt subtly shifts its design based on the temporal flux. Never wear the same shirt twice.",
+                "Infused with aether, these socks provide unparalleled comfort and a slight, pleasant hum.",
+                "A pen that floats slightly above the desk, for when you need a little space to think.",
+                "A comfortable hoodie that gives you the feeling of gazing into the vastness of space.",
+                "A modern smartwatch that displays complex data with a touch of elegance and cosmic wonder."
+            ];
+            const prices = [
+                42.00,
+                55.00,
+                25.00,
+                30.00,
+                95.00,
+                250.00
+            ];
+            return {
+                id: `prod_${index + 1}`,
+                name: productNames[index],
+                description: productDescriptions[index],
+                price: prices[index],
+                imageUrl: img.imageUrl,
+                imageHint: img.imageHint
+            };
+        });
     }
-];
-// Initialize products
-if (products.length === 0) {
-    products = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$placeholder$2d$images$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["PlaceHolderImages"].map((img, index)=>{
-        const productNames = [
-            "Quantum-Charged Mug",
-            "Chrono-Shifting T-Shirt",
-            "Aether-Infused Socks",
-            "Zero-Gravity Pen",
-            "Hyperspace Hoodie",
-            "Singularity Smartwatch"
-        ];
-        const productDescriptions = [
-            "A mug that keeps your coffee at the perfect temperature using quantum entanglement.",
-            "This t-shirt subtly shifts its design based on the temporal flux. Never wear the same shirt twice.",
-            "Infused with aether, these socks provide unparalleled comfort and a slight, pleasant hum.",
-            "A pen that floats slightly above the desk, for when you need a little space to think.",
-            "A comfortable hoodie that gives you the feeling of gazing into the vastness of space.",
-            "A modern smartwatch that displays complex data with a touch of elegance and cosmic wonder."
-        ];
-        const prices = [
-            42.00,
-            55.00,
-            25.00,
-            30.00,
-            95.00,
-            250.00
-        ];
-        return {
-            id: `prod_${index + 1}`,
-            name: productNames[index],
-            description: productDescriptions[index],
-            price: prices[index],
-            imageUrl: img.imageUrl,
-            imageHint: img.imageHint
-        };
-    });
 }
+// Helper to initialize or reset discount codes
+function initializeDiscounts() {
+    discountCodes = [
+        {
+            code: 'SAVE15',
+            percentage: 15,
+            isUsed: false
+        }
+    ];
+}
+// Initializing the store data
+initializeProducts();
+initializeDiscounts();
 function getCartState() {
     const items = Array.from(cart.values());
     const subtotal = items.reduce((acc, item)=>acc + item.price * item.quantity, 0);
@@ -139,6 +148,13 @@ function getCartState() {
     };
 }
 class CouponCartStore {
+    // This is for internal testing purposes to reset the state
+    _resetForTesting() {
+        cart.clear();
+        appliedDiscountCode = null;
+        orders = [];
+        initializeDiscounts();
+    }
     getProducts() {
         return products;
     }
@@ -220,18 +236,18 @@ class CouponCartStore {
             }
         }
         let newDiscount;
-        // The responsibility for clearing the cart is now moved to the client-side provider
-        // this.clearCart() is removed from here.
         if (orders.length % NTH_ORDER === 0) {
-            newDiscount = this.generateNthOrderDiscount(true);
+            newDiscount = this.generateNthOrderDiscount(true) || undefined;
         }
+        // This method will be called from the provider after this to clear the cart
+        // this.clearCart(); 
         return {
             order,
             newDiscount
         };
     }
     generateNthOrderDiscount(force = false) {
-        if (!force && (orders.length === 0 || orders.length % NTH_ORDER !== 0)) {
+        if (!force && (orders.length === 0 || (orders.length + 1) % NTH_ORDER !== 0)) {
             return null;
         }
         const newDiscount = {
