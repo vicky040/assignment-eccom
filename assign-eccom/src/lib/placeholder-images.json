@@ -1,0 +1,40 @@
+{
+  "placeholderImages": [
+    {
+      "id": "product1",
+      "description": "A futuristic mug on a desk.",
+      "imageUrl": "https://images.unsplash.com/photo-1590187487917-1dd90b585d64?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmdXR1cmlzdGljJTIwbXVnfGVufDB8fHx8MTc2NDMwNjY0MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "futuristic mug"
+    },
+    {
+      "id": "product2",
+      "description": "A stylish t-shirt with a clock design.",
+      "imageUrl": "https://images.unsplash.com/photo-1764014353262-ff9a7cbee974?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtb2Rlcm4lMjB0LXNoaXJ0fGVufDB8fHx8MTc2NDMwNjY0Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "modern t-shirt"
+    },
+    {
+      "id": "product3",
+      "description": "A pair of glowing socks.",
+      "imageUrl": "https://images.unsplash.com/photo-1734523510021-6a1044b5adfd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxnbG93aW5nJTIwc29ja3N8ZW58MHx8fHwxNzY0MzA2NjQxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "glowing socks"
+    },
+    {
+      "id": "product4",
+      "description": "A sleek pen floating in the air.",
+      "imageUrl": "https://images.unsplash.com/photo-1650039744736-fed9d92b994a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxmbG9hdGluZyUyMHBlbnxlbnwwfHx8fDE3NjQzMDY2NDF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "floating pen"
+    },
+    {
+      "id": "product5",
+      "description": "A comfortable hoodie with a space design.",
+      "imageUrl": "https://images.unsplash.com/photo-1672906674995-84a7a37648c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxzcGFjZSUyMGhvb2RpZXxlbnwwfHx8fDE3NjQzMDY2NDJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "space hoodie"
+    },
+    {
+      "id": "product6",
+      "description": "A modern smartwatch displaying data.",
+      "imageUrl": "https://images.unsplash.com/photo-1662220727289-27d6b2f10a82?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxzbWFydHdhdGNoJTIwaW50ZXJmYWNlfGVufDB8fHx8MTc2NDMwNjY0MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "smartwatch interface"
+    }
+  ]
+}
